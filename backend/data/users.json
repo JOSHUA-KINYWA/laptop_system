@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Joshua Admin",
+    "email": "admin@slfs.com",
+    "password": "admin123",
+    "role": "admin",
+    "phone": "+254712345678",
+    "username": "joshuadmin1"
+  },
+  {
+    "name": "John Student",
+    "email": "john@student.com",
+    "password": "studentpass",
+    "role": "student",
+    "phone": "+254701234567",
+    "username": "joshuastudent1"
+  }
+]
