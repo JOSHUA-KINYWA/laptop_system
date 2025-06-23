@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 export default function AvailableLaptops() {
   const [laptops, setLaptops] = useState([]);
@@ -16,10 +17,9 @@ export default function AvailableLaptops() {
     }
 
     setAuthorized(true);
-    fetch('http://localhost:5000/api/laptops')
-      .then(res => res.json())
-      .then(data => {
-        setLaptops(data);
+    api.get('/laptops')
+      .then(res => {
+        setLaptops(res.data);
         setLoading(false);
       })
       .catch(() => {

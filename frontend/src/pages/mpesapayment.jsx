@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import api from '../services/api';
 
 export default function MpesaPayment() {
   const navigate = useNavigate();
@@ -21,9 +21,7 @@ export default function MpesaPayment() {
 
     try {
       toast.loading('⏳ Sending STK push to your phone...');
-      const res = await axios.post('http://localhost:5000/api/stkpush', {
-        phoneNumber
-      });
+      const res = await api.post('/stkpush', { phoneNumber });
 
       toast.dismiss();
 

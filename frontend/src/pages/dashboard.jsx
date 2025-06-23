@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authcontext';
+import api from '../services/api';
 import { Chart, ArcElement, Tooltip as ChartTooltip } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -40,9 +41,9 @@ export default function DashboardLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/dashboard/summary')
-      .then(res => res.json())
-      .then(data => {
+    api.get('/dashboard/summary')
+      .then(res => {
+        const data = res.data;
         setStats(data);
         setClearanceStatus(data.clearanceStatus || 'In Progress');
 

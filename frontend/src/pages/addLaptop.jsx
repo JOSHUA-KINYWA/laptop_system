@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 export default function AddLaptop() {
   const [form, setForm] = useState({
@@ -40,22 +41,12 @@ export default function AddLaptop() {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        // Convert price to number before sending
         const payload = { ...form, price: Number(form.price) };
-        const res = await fetch('http://localhost:5000/api/laptops', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify(payload),
+        await api.post('/laptops', payload, {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        if (res.ok) {
-          alert('Laptop added successfully!');
-          navigate('/available-laptops');
-        } else {
-          alert('Failed to add laptop.');
-        }
+        alert('Laptop added successfully!');
+        navigate('/available-laptops');
       } catch {
         alert('Failed to add laptop.');
       }
