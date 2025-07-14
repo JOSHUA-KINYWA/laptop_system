@@ -48,7 +48,7 @@ const consumerKey = process.env.MPESA_CONSUMER_KEY;
 const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
 const shortcode = process.env.MPESA_SHORTCODE;
 const passkey = process.env.MPESA_PASSKEY;
-const callbackURL = "https://yourdomain.com/mpesa/callback";
+const callbackURL = 'https://www.mullerflow.com/callbackurl';;
 const baseURL = "https://sandbox.safaricom.co.ke";
 
 app.post('/api/stkpush', async (req, res) => {
