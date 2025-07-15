@@ -1,6 +1,7 @@
 // context/authcontext.jsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -11,18 +12,8 @@ export default function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message || 'Login failed');
-      }
-
-      const data = await res.json();
+      const res = await api.post('/auth/login', { email, password });
+      const data = res.data;
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('role', data.user.role);

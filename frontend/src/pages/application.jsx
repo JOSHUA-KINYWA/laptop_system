@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 export default function Application() {
   const { laptopId } = useParams();
@@ -22,12 +23,8 @@ export default function Application() {
       setEmail(storedEmail);
     }
 
-    fetch(`http://localhost:5000/api/laptops/${laptopId}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Laptop not found');
-        return res.json();
-      })
-      .then(data => setLaptop(data))
+    api.get(`/laptops/${laptopId}`)
+      .then(res => setLaptop(res.data))
       .catch(err => {
         console.error(err);
         setLaptop(null);
@@ -59,13 +56,8 @@ export default function Application() {
       year,
     };
 
-    fetch('http://localhost:5000/api/applications/apply', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(applicationData),
-    })
-      .then(res => res.json())
-      .then(data => {
+    api.post('/applications/apply', applicationData)
+      .then(() => {
         alert('✅ Application submitted successfully!');
         navigate('/mpesa');
       })
